@@ -4,17 +4,15 @@
 # Assumes that an image is built via `run_docker.sh`
 
 # Step 1:
-# Create dockerpath
-# dockerpath=<your docker ID/path>
-export dockerpath=fabiotavarespr/udacity-devopsenginner-capstone
-export DOCKER_ID_USER="fabiotavarespr"
+# Create DOCKER_PATH
+export DOCKER_PATH=fabiotavarespr/udacity-devopsenginner-capstone
 
 # Step 2:  
 # Authenticate & tag
-echo "Docker ID and Image: $dockerpath"
+echo "Docker ID and Image: $DOCKER_PATH"
 docker login
-docker tag $DOCKER_ID_USER/udacity-devopsenginner-capstone $DOCKER_ID_USER/udacity-devopsenginner-capstone
+docker tag $DOCKER_PATH $DOCKER_PATH
 
 # Step 3:
 # Push image to a docker repository
-docker push fabiotavarespr/udacity-devopsenginner-capstone
+docker push $DOCKER_PATH
