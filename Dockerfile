@@ -2,6 +2,7 @@
 FROM node:10.18.1 as react-build
 WORKDIR /app
 RUN ls -la app
+RUN ls -la /app
 COPY app/. .
 RUN ls -la
 RUN yarn
