@@ -5,6 +5,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY app/. ./
 RUN yarn
+RUN ls -la
 RUN yarn build
 
 # Stage 2 - the production environment
