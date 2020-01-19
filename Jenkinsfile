@@ -14,6 +14,15 @@ node {
       echo 'Linting...'
       sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
     }
+    stage('Building image') {
+	    echo 'Building Docker image...'
+      withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+	     	sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+	     	sh "docker build -t ${registry} ."
+	     	sh "docker tag ${registry} ${registry}"
+	     	sh "docker push ${registry}"
+      }
+    }
     stage("Cleaning up") {
       echo 'Cleaning up...'
       sh "docker system prune"
