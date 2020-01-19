@@ -1,7 +1,8 @@
 # Stage 1
 FROM node:10.18.1 as react-build
 WORKDIR /app
-COPY app/. /app
+COPY app/. ./app
+RUN ls -la
 RUN yarn
 RUN yarn build
 
