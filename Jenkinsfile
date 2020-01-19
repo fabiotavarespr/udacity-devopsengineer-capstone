@@ -34,7 +34,6 @@ node {
             sh "kubectl apply -f aws/kube/capstone-app-deployment.yml"
             sh "kubectl apply -f aws/kube/load-balancer.yml"
             sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
-            sh "aws cloudformation update-stack --stack-name udacity-capstone-worker-nodes --template-body file://aws/worker_nodes/worker_nodes.yml --parameters file://aws/worker_nodes/worker_nodes_parameters.json --region=us-west-2 --capabilities CAPABILITY_IAM"
             sh "kubectl get nodes"
             sh "kubectl get pods"
         }
