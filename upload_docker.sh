@@ -11,6 +11,10 @@ export DOCKER_PATH=fabiotavarespr/udacity-devopsenginner-capstone
 # Authenticate & tag
 echo "Docker ID and Image: $DOCKER_PATH"
 docker login
+
+echo "Build docker image and add a descriptive tag with: $DOCKER_PATH"
+docker build --tag=$DOCKER_PATH .
+
 docker tag $DOCKER_PATH $DOCKER_PATH
 
 # Step 3:
