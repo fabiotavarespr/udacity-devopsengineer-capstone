@@ -18,7 +18,7 @@ function App() {
             @fabiotavarespr
           </a>
         </p>
-        <p>version 0.0.1</p>
+        <p>version 0.0.2</p>
       </header>
     </div>
   );
