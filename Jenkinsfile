@@ -28,7 +28,13 @@ node {
       dir ('./') {
         withAWS(credentials: 'aws-jenkins-credentials', region: 'us-west-2') {
             sh "aws eks --region us-west-2 update-kubeconfig --name FabioRegoCapstoneEKS-JLXqe34SMfhL"
+            sh "kubectl get nodes"
+            sh "kubectl get pods"
+            sh "kubectl apply -f aws/kube/aws-auth-cm.yaml"
+            sh "kubectl apply -f aws/kube/capstone-app-deployment.yml"
+            sh "kubectl apply -f aws/kube/load-balancer.yml"
             sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
+            sh "aws cloudformation update-stack --stack-name udacity-capstone-worker-nodes --template-body file://aws/worker_nodes/worker_nodes.yml --parameters file://aws/worker_nodes/worker_nodes_parameters.json --region=us-west-2 --capabilities CAPABILITY_IAM"
             sh "kubectl get nodes"
             sh "kubectl get pods"
         }
