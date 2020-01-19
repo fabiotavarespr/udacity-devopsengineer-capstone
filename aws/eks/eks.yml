@@ -1,0 +1,32 @@
+Description: >
+    Capstone project for Cloud DevOps Engineering Nanodegree
+    Author - Fabio Tavares Pereira Rego
+    Creating the EKS cluster.
+
+Parameters:
+  EnvironmentName:
+    Description: An Environment name that will be prefixed to resources
+    Type: String
+Resources:
+  FabioRegoCapstoneEKS:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Version: '1.14'
+      RoleArn: arn:aws:iam::508511890440:role/eks-role
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+        - Fn::ImportValue:
+            !Sub "${EnvironmentName}-SCG"
+        SubnetIds:
+            Fn::Split:
+                - ","
+                - Fn::ImportValue:
+                      Fn::Sub: ${EnvironmentName}-SBN-IDS
+Outputs:
+  EksId:
+    Description: The EKS id.
+    Value: !Ref FabioRegoCapstoneEKS
+    Export: 
+        Name: !Sub ${EnvironmentName}-EKS
+
+
