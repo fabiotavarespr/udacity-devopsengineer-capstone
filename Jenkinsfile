@@ -23,8 +23,19 @@ node {
 	     	sh "docker push ${registry}"
       }
     }
+    stage('Deploying') {
+      echo 'Deploying to AWS...'
+      dir ('./') {
+        withAWS(credentials: 'aws-jenkins-credentials', region: 'us-west-2') {
+            sh "aws eks --region us-west-2 update-kubeconfig --name 	FabioRegoCapstoneEKS-JLXqe34SMfhL"
+            sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
+            sh "kubectl get nodes"
+            sh "kubectl get pods"
+        }
+      }
+    }
     stage("Cleaning up") {
       echo 'Cleaning up...'
-      sh "docker system prune"
+      sh "docker system prune -f"
     }
 }
