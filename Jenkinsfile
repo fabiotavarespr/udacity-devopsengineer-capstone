@@ -12,7 +12,7 @@ node {
     }
     stage("Linting") {
       echo 'Linting...'
-      sh '/home/ubuntu/.local/bin/hadolint Dockerfile'
+      sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
     }
     stage("Cleaning up") {
       echo 'Cleaning up...'
