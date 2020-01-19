@@ -3,7 +3,7 @@ FROM node:10.18.1 as react-build
 
 RUN mkdir /app
 WORKDIR /app
-COPY app/. ./
+COPY project/. ./
 RUN yarn
 RUN ls -la
 RUN yarn build
